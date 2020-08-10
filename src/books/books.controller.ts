@@ -1,9 +1,12 @@
 import { Controller, Get } from '@nestjs/common';
+import { Book, BooksService } from './books.service';
 
 @Controller('books')
 export class BooksController {
-  @Get()
-  findAll(): string {
-    return 'This action returns all books.';
+  constructor(private readonly bookService: BooksService) {}
+
+  @Get('/books')
+  getAllBooks(): Book[] {
+    return this.bookService.gerAllAllBooks();
   }
 }
