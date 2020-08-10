@@ -1,12 +1,19 @@
-import { Controller, Get } from '@nestjs/common';
-import { Book, BooksService } from './books.service';
+import { Controller, Get, Post, Body } from '@nestjs/common';
+import { BookType, BooksService } from './books.service';
+import { CreateBookDTO } from './books.dto';
 
 @Controller('books')
 export class BooksController {
   constructor(private readonly bookService: BooksService) {}
 
-  @Get('/books')
-  getAllBooks(): Book[] {
-    return this.bookService.gerAllAllBooks();
+  @Post('post')
+  createBook(@Body() createBookDTO: CreateBookDTO) {
+    this.bookService.createBook(createBookDTO);
+    return;
+  }
+
+  @Get('')
+  getAllBooks(): BookType[] {
+    return this.bookService.gerAllBooks();
   }
 }

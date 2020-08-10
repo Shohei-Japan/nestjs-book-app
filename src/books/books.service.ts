@@ -1,6 +1,9 @@
 import { Injectable } from '@nestjs/common';
+import { Book } from './books.entity'
+import { InjectRepository } from '@nestjs/typeorm'
+import { Repository } from 'typeorm'
 
-export interface Book {
+export interface BookType {
   id: number;
   title: string;
   description: string;
@@ -8,20 +11,21 @@ export interface Book {
   pagesRead: number;
 }
 
-const books: Book[] = [
-  {
-    id: 1,
-    title: 'hah',
-    description: 'ssss',
-    pagesAmount: 123,
-    pagesRead: 11
-  }
-]
+const books: Book[] = []
 
 @Injectable()
 export class BooksService {
+  constructor(
+    @InjectRepository(Book)
+    private readonly bookRepository: Repository<Book>,
+  ) {}
 
-  gerAllAllBooks(): Book[] {
+  async createBook(bookData: Partial<Book>): Promise<void> {
+    await this.bookRepository.insert(bookData);
+    return;
+  }  
+
+  gerAllBooks(): BookType[] {
     return [...books];
   }
 }

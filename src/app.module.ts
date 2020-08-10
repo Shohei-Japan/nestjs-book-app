@@ -12,6 +12,7 @@ import { BooksService } from './books/books.service';
       type: 'mysql',
       host: 'localhost',
       port: 3306,
+      charset: 'utf8mb4_unicode_ci',
       username: 'root',
       password: 'password',
       database: 'nestjs_book_api',
